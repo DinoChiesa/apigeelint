@@ -9,6 +9,7 @@
   "scripts": {
     "badge": "mocha --reporter mocha-badge-generator",
     "coverage": "npx nyc --reporter=text mocha",
+    "coveradge": "npx nyc --reporter coveradge mocha",
     "test": "mocha"
   },
   "repository": {
@@ -50,11 +51,27 @@
     "xpath": "latest"
   },
   "devDependencies": {
+    "coveradge": "^0.8.1",
     "mocha": "^9.1.3",
     "mocha-badge-generator": "^0.9.0",
-    "mocha-lcov-reporter": "^1.3.0",
     "nyc": "^15.1.0"
   },
+"nyc": {
+    "reporter": [
+      "json-summary"
+    ],
+    "branches": 80,
+    "lines": 80,
+    "functions": 80,
+    "statements": 80,
+    "watermarks": {
+      "lines": [80, 95],
+      "functions": [80, 95],
+      "branches": [80, 95],
+      "statements": [80, 95]
+    }
+},
+
   "overrides": {
     "badge-up": "https://registry.npmjs.org/@rpl/badge-up/-/badge-up-3.0.0.tgz",
     "nth-check": "^2.0.1",
