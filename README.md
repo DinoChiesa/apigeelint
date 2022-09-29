@@ -2,11 +2,12 @@
 
 [![Apache 2.0](https://img.shields.io/badge/license-apache%202.0-blue.svg)](LICENSE)
 ![Node](https://img.shields.io/node/v/apigeelint.svg)
-![Test](https://raw.githubusercontent.com/apigee/apigeelint/master/test/badge.svg?sanitize=true)
 ![LastCommit](https://img.shields.io/github/last-commit/apigee/apigeelint/master.svg)
 ![CommitActivity](https://img.shields.io/github/commit-activity/4w/apigee/apigeelint)
 ![Downloads](https://img.shields.io/npm/dm/apigeelint.svg)
 [![Node.js Package](https://github.com/apigee/apigeelint/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/apigee/apigeelint/actions/workflows/npm-publish.yml)
+
+![Test](https://raw.githubusercontent.com/apigee/apigeelint/master/test/badge.svg?sanitize=true)
 ![Coverage](https://raw.githubusercontent.com/DinoChiesa/apigeelint/coveradge/coverage-badge.svg?sanitize=true)
 
 Static code analysis for Apigee proxy and sharedflow bundles to encourage API developers to use [best practices](https://cloud.google.com/apigee/docs/api-platform/fundamentals/best-practices-api-proxy-design-and-development) and avoid [anti-patterns](https://cloud.google.com/apigee/docs/api-platform/antipatterns/intro).
