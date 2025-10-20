@@ -16,19 +16,31 @@
 /* global describe, it */
 
 const assert = require("assert"),
+  debug = require("debug")("apigeelint:TruthTableTest"),
   TruthTable = require("../../lib/package/TruthTable.js"),
-  test = function (exp, assertion) {
-    it(`${exp} should be ${assertion}`, function () {
-      var tt = new TruthTable(exp);
+  test = function (exp, expected) {
+    it(`${exp} should be ${expected}`, function () {
+      try {
+        const tt = new TruthTable(exp),
+          evaluation = tt.getEvaluation();
 
-      assert.equal(
-        tt.getEvaluation(),
-        assertion,
-        JSON.stringify({
-          truthTable: tt,
-          evaluation: tt.getEvaluation(),
-        }),
-      );
+        debug(`evaluation: ${evaluation}`);
+        assert.equal(
+          evaluation,
+          expected,
+          JSON.stringify({
+            truthTable: tt,
+            evaluation,
+          }),
+        );
+      } catch (parseExc) {
+        debug(`expected: ${expected}`);
+        assert.notEqual("ERR_ASSERTION", parseExc.code);
+        debug(`parse Exception: ${JSON.stringify(parseExc)}`);
+        debug(`parse Exception: ${parseExc.stack}`);
+        assert.equal("exception", expected);
+        return;
+      }
     });
   };
 
@@ -54,8 +66,16 @@ describe("TruthTable MatchesPath", function () {
   );
   test('(a MatchesPath "a") and !(a MatchesPath "a")', "absurdity");
 
-  // REVIEW AssertionError
-  // test('proxy.pathsuffix MatchesPath "/{version}/profile/{profile.id}/paymentmethods/**" and proxy.pathsuffix !MatchesPath "**/initialize" and proxy.pathsuffix !MatchesPath "**/finalize" and request.verb = "GET"',"valid");
-  // test('proxy.pathsuffix !MatchesPath "/{version}/profile/{profile.id}/paymentmethods/**")',"valid");
-  // test("proxy.pathsuffix MatchesPath \"/{version}/profile/{profile.id}/paymentmethods/**\" and proxy.pathsuffix !MatchesPath \"**/initialize\" ", "valid");
+  test(
+    'proxy.pathsuffix MatchesPath "/{version}/profile/{profile.id}/paymentmethods/**" and proxy.pathsuffix !MatchesPath "**/initialize" and proxy.pathsuffix !MatchesPath "**/finalize" and request.verb = "GET"',
+    "exception",
+  );
+  test(
+    'proxy.pathsuffix !MatchesPath "/{version}/profile/{profile.id}/paymentmethods/**")',
+    "exception",
+  );
+  test(
+    'proxy.pathsuffix MatchesPath "/{version}/profile/{profile.id}/paymentmethods/**" and proxy.pathsuffix !MatchesPath "**/initialize" ',
+    "exception",
+  );
 });
